@@ -130,8 +130,7 @@ Full performance diagnostics via **Pyfolio** — cumulative and rolling returns,
 
 ## 5. Factor diagnostics (Alphalens)
 
-Before trusting the backtest, the factor itself is diagnosed independently with **Alphalens**: clean factor/forward-return alignment, quantile bucketing, and IC computed at 5/10/21/63-day horizons. I hit — and fixed — the standard Alphalens gotcha here: `ttest_1samp` silently propagates `NaN` for short horizons with sparse data, so IC stats are computed with a `nan_policy="omit"`-safe wrapper rather than trusted blindly.
-
+Before trusting the backtest, the factor itself is diagnosed independently with **Alphalens**: clean factor/forward-return alignment, quantile bucketing, and IC computed at 5/10/21/63-day horizons. 
 | Horizon | IC mean | t-stat | p-value |
 |---|---|---|---|
 | 5D | 0.0208 | 4.17 | 3.4e-05 |
