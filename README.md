@@ -141,31 +141,8 @@ Before trusting the backtest, the factor itself is diagnosed independently with 
 <img width="543" height="206" alt="Screenshot 2026-07-15 at 8 53 20 AM" src="https://github.com/user-attachments/assets/83c046be-c252-436a-b09f-5a39385e9db3" />
 
 
-## 6. Options overlay decision engine
-
-A separate, deliberately simple module maps `(momentum signal, IV rank regime, portfolio objective)` to a specific options structure — e.g., bullish + high IV + income → bull put spread; bullish + low IV + growth → call debit spread. It's a transparent rule-based lookup table, not a model: every recommendation is traceable to the exact rule that produced it, and it's meant to sit downstream of the ML signal as a practitioner-facing translation layer, not to replace it.
 
 ## Tech stack
 
 `Python` · `pandas` / `Polars` (dual-engine feature pipeline) · `NumPy` · `SciPy` (Spearman IC, t-tests) · `scikit-learn` · `XGBoost` · `Zipline` (event-driven backtesting) · `Alphalens` (factor diagnostics) · `Pyfolio` (performance tear sheets) · `ffn` · `yfinance` · `joblib` (parallel CV folds)
-
-## Repository structure
-
-```
-.
-├── README.md
-├── images/                       # charts referenced above
-├── notebooks/
-│   └── ml_momentum_research.ipynb
-├── features/
-│   ├── microstructure.py         # Amihud, Kyle's lambda, Roll spread, fragility score
-│   ├── momentum.py                # ATR extension, rolling z-scores
-│   └── regime.py                  # Kalman filter, EMA hierarchy
-├── selection/
-│   └── feature_selection.py       # correlation-cluster pruning + forward/backward wrapper search
-├── strategy/
-│   └── config.py                  # backtest CONFIG: universe, features, model, portfolio construction
-└── requirements.txt
-
-
 
