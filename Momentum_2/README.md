@@ -104,6 +104,7 @@ the last because it operates on fewer symbols/features:
 | Cluster representatives (10 clusters) | 10 |
 | After IC filter (\|IC\| ≥ 0.01, top 10) | 8 |
 | **Final selected** | **8** (92.1% removal rate) |
+<img width="612" height="819" alt="Screenshot 2026-08-06 at 1 49 31 PM" src="https://github.com/user-attachments/assets/a5ce6efa-6289-44d8-8cb7-397050711498" />
 
 ### Final 8 features (point-estimate IC, full sample)
 
@@ -134,7 +135,10 @@ out-of-sample**:
 | `close_macd_line_50_200_30` | −0.0087 | **−1.58** | 8% |
 | `atr_extension_200` | −0.0215 | **−3.37** | 0% |
 | `close_roc_0_5` | −0.0258 | **−3.98** | 0% |
-| `close_roc_0_21` | −0.0382 | **−5.24** | 0% |
+| `close_roc_0_21` | −0.0382 | **−5.24** | 0% |<img width="612" height="819" alt="Screenshot 2026-08-06 at 1 48 10 PM" src="https://github.com/user-attachments/assets/5782ac99-f01e-4d57-8475-68df61e280ee" />
+
+<img width="1171" height="671" alt="Screenshot 2026-08-06 at 1 46 52 PM" src="https://github.com/user-attachments/assets/0383a704-5183-4758-a61d-2106b3a1935c" />
+
 
 Only `close_adx_63` and `close_fastqsmom_21_252_126` are both strong *and*
 stable. `atr_extension_200`, `close_roc_0_5`, and `close_roc_0_21` had a
@@ -178,6 +182,9 @@ rebalanced monthly via Zipline, benchmarked against SPY.
 | Alpha / Beta (vs. SPY) | 0.08 / 1.28 |
 | Daily turnover | 6.34% |
 | Skew / Kurtosis | −0.43 / 5.50 |
+![Uploading Screenshot 2026-08-06 at 1.53.23 PM.png…]()
+
+<img width="1133" height="765" alt="Screenshot 2026-08-06 at 1 50 34 PM" src="https://github.com/user-attachments/assets/a2fdbebb-4399-419f-bc4c-1609406a418d" />
 
 Beta of 1.28 and a second, much longer drawdown (44.9%, Feb 2021 → recovery
 Nov 2024, 982 days) make clear this is **not** a market-neutral strategy —
@@ -193,7 +200,7 @@ analysis: 1,597 trades, 61% win rate.
 | 10D | 0.043 | 0.260 | 19.0 bps | −10.5 bps |
 | 21D | 0.042 | 0.256 | 19.2 bps | −10.3 bps |
 | 63D | 0.047 | 0.290 | 13.6 bps | −6.1 bps |
-
+<img width="1174" height="427" alt="Screenshot 2026-08-06 at 1 52 46 PM" src="https://github.com/user-attachments/assets/5ab0c894-4ceb-43b5-8dac-e8a411d22216" />
 t-stat(IC) at the 63-day horizon is 18.45 (p≈0) — the ranking signal is
 statistically real. The caveat is **turnover**: mean turnover in the
 extreme quantiles runs from ~18% (5D) up to ~93% (63D), which is expensive
