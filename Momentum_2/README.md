@@ -230,67 +230,13 @@ lower than the raw IC would suggest in isolation.
   market condition, and should be excluded or flagged before using early
   history for anything beyond illustration.
 
-## How to run
-
-This pipeline depends on internal course/lab infrastructure
-(`qsconnect`, `qsresearch`, `qsbacktest`) for data access, indicator
-computation, and the Zipline-based backtest harness — those packages are
-licensed lab material and are not included or redistributed here. What's
-original and reproducible is the **selection methodology**: the IC/
-correlation/clustering/BH-FDR/bootstrap/ML-importance pipeline in
-`src/feature_selection.py` operates on a plain pandas/polars DataFrame with
-`symbol`, `date`, `close`, `high`, `low`, `volume` columns and no
-proprietary dependency once your own OHLCV + indicator columns are supplied.
-
-```bash
-git clone https://github.com/[YOUR-USERNAME]/dynamic-universe-factor-selection.git
-cd dynamic-universe-factor-selection
-pip install -r requirements.txt
-
-# Supply your own OHLCV panel with symbol/date/open/high/low/close/volume,
-# and your own indicator columns (or substitute a public library like
-# ta-lib / pandas-ta for the technical indicators used here).
-python src/build_universe.py        # point-in-time eligibility + reduction
-python src/feature_selection.py     # IC -> correlation -> clustering -> BH-FDR -> bootstrap -> ML importance
-python src/generate_report.py       # selection summary + charts in /results
-```
-
 ## What I'd do next
 
-- Drop `atr_extension_200`, `close_roc_0_5`, and `close_roc_0_21` from the
-  "confirmed" set given their bootstrap sign instability, and re-run the
-  backtest on the 5 stable survivors alone to see how much of the Sharpe
-  ratio they were actually contributing.
-- Investigate *why* MDI and permutation importance disagree so completely —
-  likely candidates are feature collinearity interacting with tree splits,
-  or the small final feature count making rank orderings noisy.
-- Add an explicit transaction-cost/capacity model on top of Zipline's
-  default execution assumptions, given the turnover profile at longer
-  horizons.
-- Test industry/sector neutrality on the ranking signal — none of the 8
-  features are sector-aware, so part of the realized 1.28 beta may be a
-  disguised sector or size tilt rather than genuine stock selection.
-- Re-run the eligibility filter with a hard floor on universe size per date
-  to eliminate the early min-of-1 artifact.
 
-## Repository structure
+- Universe Screener Optimization: Conduct a comprehensive parameter sweep on the initial eligibility filters. By identifying and selecting inherently better-performing or less volatile stocks before the indicator phase, the aim is to organically reduce the strategy's 46.5% maximum drawdown.
+- Feature Set Reduction: Isolate the XGBoost ranking signal to only the top 5 most robust features. By dropping the metrics that exhibited bootstrap sign instability, I can test whether a more concentrated, stable feature set degrades raw returns or actively improves the realized Sharpe ratio.
 
-```
-.
-├── README.md
-├── requirements.txt
-├── src/
-│   ├── build_universe.py       # point-in-time eligibility + symbol reduction
-│   ├── feature_selection.py    # IC / correlation / clustering / BH-FDR / bootstrap / ML importance
-│   └── generate_report.py      # selection summary + charts
-├── results/
-│   ├── ic_ranking.png
-│   ├── correlation_clustered.png
-│   ├── stability_selection.png
-│   └── selection_report.txt
-└── notebooks/
-    └── exploration.ipynb
-```
+
 
 ## Notes on originality
 
